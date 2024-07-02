@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Service Page</title>
+    <!-- Include EmailJS SDK -->
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script>
+        // Initialize EmailJS with your Service ID
+        emailjs.init('your_emailjs_user_id');
+        
+        // Function to send email
+        function sendEmail() {
+            var userEmail = document.getElementById("userEmail").value;
+            var message = document.getElementById("message").value;
+            
+            // Use your EmailJS Template ID here
+            var templateParams = {
+                to_email: userEmail,
+                message_html: message
+            };
+
+            // Send email using EmailJS
+            emailjs.send('your_emailjs_service_id', 'your_emailjs_template_id', templateParams)
+                .then(function(response) {
+                    console.log('Email sent:', response);
+                    alert('Email sent to ' + userEmail);
+                }, function(error) {
+                    console.error('Email send error:', error);
+                    alert('Failed to send email. Please try again later.');
+                });
+        }
+
+        // Function to handle logout
+        function logout() {
+            // Redirect to the login page
+            window.location.href = "../index.html";
+        }
+    </script>
+</head>
+<body>
+    <h2>Email Service Page</h2>
+    <form>
+        <label for="userEmail">Recipient Email:</label><br>
+        <input type="email" id="userEmail" name="userEmail" required><br>
+        <label for="message">Message:</label><br>
+        <textarea id="message" name="message" rows="4" cols="50" required></textarea><br><br>
+        <button type="button" onclick="sendEmail()">Send Email</button>
+        <button type="button" onclick="logout()">Logout</button>
+    </form>
+</body>
+</html>
